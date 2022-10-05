@@ -1,1 +1,1 @@
-package Hangman
+package main
