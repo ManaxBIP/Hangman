@@ -66,8 +66,9 @@ func Game(file string) {
 	for i := 0; i < 2; i++ {
 		print("\n")
 	}
+	countFinish := 0
 	for x := attempts; x > 0; x-- {
-		countFinish := 0
+		countFinish = 0
 		for elm := range res {
 			if res[elm] != "_" {
 				countFinish++
@@ -102,5 +103,7 @@ func Game(file string) {
 			}
 		}
 	}
-
+	if countFinish != len(res) {
+		print("You lose ! The result was ", random, ".")
+	}
 }
