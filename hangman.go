@@ -34,19 +34,29 @@ func Game() {
 	randomSplitted = strings.Split(random, "")
 	print(randomSplitted[0])
 	print("\n")
+	RandomRune := []rune(random)
 	for i := 0; i < n; i++ {
-		RandomRune := []rune(random)
 		randomIndex := rand.Intn(len(RandomRune))
 		pick := RandomRune[randomIndex]
-		ToShow = append(ToShow, string(pick))
+		if RandomRune[randomIndex] != 0 {
+			ToShow = append(ToShow, string(pick))
+		} else {
+			i--
+		}
+		for k := range RandomRune {
+			if RandomRune[k] == pick {
+				RandomRune[k] = 0
+			}
+		}
+
+		fmt.Println(RandomRune)
 	}
 	fmt.Println(ToShow)
 	res := make([]string, len(randomSplitted))
 	for i := 0; i < len(randomSplitted); i++ {
 		res[i] = "_"
 	}
-	fmt.Println(res)
-	for y := 0; y <= len(ToShow); y++ {
+	for y := 0; y <= len(ToShow)-1; y++ {
 		count := 0
 		for _, i := range randomSplitted {
 			if ToShow[y] == i {
