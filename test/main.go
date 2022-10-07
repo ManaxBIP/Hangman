@@ -1,7 +1,11 @@
 package main
 
-import "Hangman"
+import (
+	"Hangman"
+	"os"
+)
 
 func main() {
-	Hangman.Game()
+	args := os.Args[1:]
+	Hangman.Game(args[0])
 }

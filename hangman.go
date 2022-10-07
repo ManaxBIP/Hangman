@@ -10,8 +10,8 @@ import (
 	"time"
 )
 
-func Game() {
-	data, err := os.Open("words.txt")
+func Game(file string) {
+	data, err := os.Open(file)
 	if err != nil {
 		log.Panicf("failed reading data from file: %s", err)
 	}
