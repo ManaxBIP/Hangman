@@ -43,24 +43,19 @@ func Game() {
 	fmt.Println(ToShow)
 	res := make([]string, len(randomSplitted))
 	for i := 0; i < len(randomSplitted); i++ {
-		res[i] = "-"
+		res[i] = "_"
 	}
 	fmt.Println(res)
-	count := 0
-	for _, i := range randomSplitted {
-		for _, j := range ToShow {
-			if count <= len(randomSplitted) {
-				if i == j {
-					res[count] = j
-				} else {
-					res[count] = "-"
-				}
-				count++
-			} else {
-				break
+	for y := 0; y <= len(ToShow); y++ {
+		count := 0
+		for _, i := range randomSplitted {
+			if ToShow[y] == i {
+				res[count] = i
 			}
+			count++
 		}
 	}
+
 	fmt.Println(res)
 
 }
