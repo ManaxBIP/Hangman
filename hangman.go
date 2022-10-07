@@ -67,8 +67,18 @@ func Game(file string) {
 		print("\n")
 	}
 	for x := attempts; x > 0; x-- {
+		countFinish := 0
+		for elm := range res {
+			if res[elm] != "_" {
+				countFinish++
+			}
+		}
+		if countFinish == len(res) {
+			print("Congrats !")
+			break
+		}
 		var UserChoice string
-		var found bool
+		found := false
 		fmt.Print("Choose: ")
 		fmt.Scan(&UserChoice)
 		for i := range randomSplitted {
@@ -76,16 +86,20 @@ func Game(file string) {
 				res[i] = UserChoice
 				x++
 				found = true
-			} else {
-				found = false
+				for _, i := range res {
+					print(i)
+					print(" ")
+				}
+				for j := 0; j < 2; j++ {
+					print("\n")
+				}
 			}
 		}
 		if found == false {
 			print("Not present in the word, ", x-1, " attempts remaining\n")
-		}
-		for _, i := range res {
-			print(i)
-			print(" ")
+			for i := 0; i < 10; i++ {
+				print("\n")
+			}
 		}
 	}
 
