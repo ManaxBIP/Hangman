@@ -7,5 +7,7 @@ import (
 
 func main() {
 	args := os.Args[1:]
-	Hangman.Game(args[0])
+	if len(args) != 0 {
+		Hangman.Game(args[0])
+	}
 }

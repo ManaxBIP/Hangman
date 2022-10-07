@@ -11,6 +11,7 @@ import (
 )
 
 func Game(file string) {
+	attempts := 10
 	data, err := os.Open(file)
 	if err != nil {
 		log.Panicf("failed reading data from file: %s", err)
@@ -24,16 +25,10 @@ func Game(file string) {
 	y1 := rand.New(x1)
 	random := str[y1.Intn(len(str))]
 
-	fmt.Println(random)
-
 	n := len(random)/2 - 1
-	print(n)
-	print("\n")
 	var randomSplitted []string
 	var ToShow []string
 	randomSplitted = strings.Split(random, "")
-	print(randomSplitted[0])
-	print("\n")
 	RandomRune := []rune(random)
 	for i := 0; i < n; i++ {
 		randomIndex := rand.Intn(len(RandomRune))
@@ -48,10 +43,8 @@ func Game(file string) {
 				RandomRune[k] = 0
 			}
 		}
-
-		fmt.Println(RandomRune)
 	}
-	fmt.Println(ToShow)
+
 	res := make([]string, len(randomSplitted))
 	for i := 0; i < len(randomSplitted); i++ {
 		res[i] = "_"
@@ -65,7 +58,35 @@ func Game(file string) {
 			count++
 		}
 	}
-
-	fmt.Println(res)
+	print("Good Luck, you have 10 attempts.\n")
+	for _, i := range res {
+		print(i)
+		print(" ")
+	}
+	for i := 0; i < 2; i++ {
+		print("\n")
+	}
+	for x := attempts; x > 0; x-- {
+		var UserChoice string
+		var found bool
+		fmt.Print("Choose: ")
+		fmt.Scan(&UserChoice)
+		for i := range randomSplitted {
+			if UserChoice == randomSplitted[i] {
+				res[i] = UserChoice
+				x++
+				found = true
+			} else {
+				found = false
+			}
+		}
+		if found == false {
+			print("Not present in the word, ", x-1, " attempts remaining\n")
+		}
+		for _, i := range res {
+			print(i)
+			print(" ")
+		}
+	}
 
 }
