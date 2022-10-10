@@ -115,80 +115,137 @@ func Game(file string) {
 				}
 			}
 			if found == false {
-				print("Not present in the word, ", x-1, " attempts remaining\n")
-				if x-1 == 9 {
+				attempts--
+				print("Not present in the word, ", attempts, " attempts remaining\n")
+				if attempts == 9 {
 					for i := 0; i < 8; i++ {
 						fmt.Println(lines[i])
 					}
 				}
-				if x-1 == 8 {
+				if attempts == 8 {
 					for i := 8; i < 16; i++ {
 						fmt.Println(lines[i])
 					}
 				}
-				if x-1 == 7 {
+				if attempts == 7 {
 					for i := 16; i < 24; i++ {
 						fmt.Println(lines[i])
 					}
 				}
-				if x-1 == 6 {
+				if attempts == 6 {
 					for i := 24; i < 32; i++ {
 						fmt.Println(lines[i])
 					}
 				}
-				if x-1 == 5 {
+				if attempts == 5 {
 					for i := 32; i < 40; i++ {
 						fmt.Println(lines[i])
 					}
 				}
-				if x-1 == 4 {
+				if attempts == 4 {
 					for i := 40; i < 48; i++ {
 						fmt.Println(lines[i])
 					}
 				}
-				if x-1 == 3 {
+				if attempts == 3 {
 					for i := 48; i < 56; i++ {
 						fmt.Println(lines[i])
 					}
 				}
-				if x-1 == 2 {
+				if attempts == 2 {
 					for i := 56; i < 64; i++ {
 						fmt.Println(lines[i])
 					}
 				}
-				if x-1 == 1 {
+				if attempts == 1 {
 					for i := 64; i < 72; i++ {
 						fmt.Println(lines[i])
 					}
 				}
-				if x-1 == 0 {
+				if attempts == 0 {
 					for i := 72; i < 80; i++ {
 						fmt.Println(lines[i])
 					}
 				}
 			}
 		} else if len(UserChoice) > 1 {
-			var StrRandomSlitted string
-			for _, i := range randomSplitted {
-				StrRandomSlitted += i
+			count := 0
+			for _, i := range UserChoice {
+				if string(i) > string(rune(64)) && string(i) < string(rune(91)) {
+					count++
+				}
 			}
-			if UserChoice == StrRandomSlitted {
-				for i := range randomSplitted {
-					res[i] = randomSplitted[i]
+			if count == len(UserChoice) {
+				var StrRandomSlitted string
+				for _, i := range randomSplitted {
+					StrRandomSlitted += i
 				}
-				for _, i := range res {
-					print(i)
-					print(" ")
+				if UserChoice == StrRandomSlitted {
+					for i := range randomSplitted {
+						res[i] = randomSplitted[i]
+					}
+					for _, i := range res {
+						print(i)
+						print(" ")
+					}
+					for j := 0; j < 2; j++ {
+						print("\n")
+					}
+				} else {
+					attempts -= 2
+					print("Not present in the word, ", attempts, " attempts remaining\n")
+					if attempts == 9 {
+						for i := 0; i < 8; i++ {
+							fmt.Println(lines[i])
+						}
+					}
+					if attempts == 8 {
+						for i := 8; i < 16; i++ {
+							fmt.Println(lines[i])
+						}
+					}
+					if attempts == 7 {
+						for i := 16; i < 24; i++ {
+							fmt.Println(lines[i])
+						}
+					}
+					if attempts == 6 {
+						for i := 24; i < 32; i++ {
+							fmt.Println(lines[i])
+						}
+					}
+					if attempts == 5 {
+						for i := 32; i < 40; i++ {
+							fmt.Println(lines[i])
+						}
+					}
+					if attempts == 4 {
+						for i := 40; i < 48; i++ {
+							fmt.Println(lines[i])
+						}
+					}
+					if attempts == 3 {
+						for i := 48; i < 56; i++ {
+							fmt.Println(lines[i])
+						}
+					}
+					if attempts == 2 {
+						for i := 56; i < 64; i++ {
+							fmt.Println(lines[i])
+						}
+					}
+					if attempts == 1 {
+						for i := 64; i < 72; i++ {
+							fmt.Println(lines[i])
+						}
+					}
+					if attempts == 0 {
+						for i := 72; i < 80; i++ {
+							fmt.Println(lines[i])
+						}
+					}
+					x++
 				}
-				for j := 0; j < 2; j++ {
-					print("\n")
-				}
-			} else {
-				print("Not present in the word, ", x-1, " attempts remaining\n")
-				for i := 0; i < 10; i++ {
-					print("\n")
-				}
-				x++
 			}
 		}
 	}
