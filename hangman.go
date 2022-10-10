@@ -83,6 +83,9 @@ func Game(file string) {
 	}
 	countFinish := 0
 	for x := attempts; x > 0; x-- {
+		if attempts < 1 {
+			break
+		}
 		countFinish = 0
 		for elm := range res {
 			if res[elm] != "_" {
