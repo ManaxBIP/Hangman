@@ -28,8 +28,15 @@ func Game(file string) {
 	n := len(random)/2 - 1
 	var randomSplitted []string
 	var ToShow []string
-	randomSplitted = strings.Split(random, "")
 	RandomRune := []rune(random)
+	for i := range RandomRune {
+		RandomRune[i] = RandomRune[i] - 32
+	}
+	var RandomUpper string
+	for i := range RandomRune {
+		RandomUpper += string(RandomRune[i])
+	}
+	randomSplitted = strings.Split(RandomUpper, "")
 	for i := 0; i < n; i++ {
 		randomIndex := rand.Intn(len(RandomRune))
 		pick := RandomRune[randomIndex]
@@ -82,19 +89,21 @@ func Game(file string) {
 		found := false
 		fmt.Print("Choose: ")
 		fmt.Scan(&UserChoice)
-		if len(UserChoice) == 1 && UserChoice > string(rune(96)) && UserChoice < string(rune(123)) {
+		if len(UserChoice) == 1 && UserChoice > string(rune(64)) && UserChoice < string(rune(91)) {
 			for i := range randomSplitted {
 				if UserChoice == randomSplitted[i] {
 					res[i] = UserChoice
 					x++
 					found = true
-					for _, i := range res {
-						print(i)
-						print(" ")
-					}
-					for j := 0; j < 2; j++ {
-						print("\n")
-					}
+				}
+			}
+			if found == true {
+				for _, i := range res {
+					print(i)
+					print(" ")
+				}
+				for j := 0; j < 2; j++ {
+					print("\n")
 				}
 			}
 			if found == false {
@@ -103,11 +112,32 @@ func Game(file string) {
 					print("\n")
 				}
 			}
-		} else {
-			x++
+		} else if len(UserChoice) > 1 {
+			var StrRandomSlitted string
+			for _, i := range randomSplitted {
+				StrRandomSlitted += i
+			}
+			if UserChoice == StrRandomSlitted {
+				for i := range randomSplitted {
+					res[i] = randomSplitted[i]
+				}
+				for _, i := range res {
+					print(i)
+					print(" ")
+				}
+				for j := 0; j < 2; j++ {
+					print("\n")
+				}
+			} else {
+				print("Not present in the word, ", x-1, " attempts remaining\n")
+				for i := 0; i < 10; i++ {
+					print("\n")
+				}
+				x++
+			}
 		}
 	}
 	if countFinish != len(res) {
-		print("You lose ! The result was ", random, ".")
+		print("You lose ! The result was ", RandomUpper, ".")
 	}
 }
