@@ -24,7 +24,6 @@ func Game(file string) {
 	x1 := rand.NewSource(time.Now().UnixNano())
 	y1 := rand.New(x1)
 	random := str[y1.Intn(len(str))]
-
 	n := len(random)/2 - 1
 	var randomSplitted []string
 	var ToShow []string
@@ -51,7 +50,6 @@ func Game(file string) {
 			}
 		}
 	}
-
 	res := make([]string, len(randomSplitted))
 	for i := 0; i < len(randomSplitted); i++ {
 		res[i] = "_"
@@ -64,6 +62,16 @@ func Game(file string) {
 			}
 			count++
 		}
+	}
+	dataPosition, err := os.Open("hangman.txt")
+	if err != nil {
+		log.Panicf("failed reading data from file: %s", err)
+	}
+	fileScanner := bufio.NewScanner(dataPosition)
+	fileScanner.Split(bufio.ScanLines)
+	var lines []string
+	for fileScanner.Scan() {
+		lines = append(lines, fileScanner.Text())
 	}
 	print("Good Luck, you have 10 attempts.\n")
 	for _, i := range res {
@@ -108,8 +116,55 @@ func Game(file string) {
 			}
 			if found == false {
 				print("Not present in the word, ", x-1, " attempts remaining\n")
-				for i := 0; i < 10; i++ {
-					print("\n")
+				if x-1 == 9 {
+					for i := 0; i < 8; i++ {
+						fmt.Println(lines[i])
+					}
+				}
+				if x-1 == 8 {
+					for i := 8; i < 16; i++ {
+						fmt.Println(lines[i])
+					}
+				}
+				if x-1 == 7 {
+					for i := 16; i < 24; i++ {
+						fmt.Println(lines[i])
+					}
+				}
+				if x-1 == 6 {
+					for i := 24; i < 32; i++ {
+						fmt.Println(lines[i])
+					}
+				}
+				if x-1 == 5 {
+					for i := 32; i < 40; i++ {
+						fmt.Println(lines[i])
+					}
+				}
+				if x-1 == 4 {
+					for i := 40; i < 48; i++ {
+						fmt.Println(lines[i])
+					}
+				}
+				if x-1 == 3 {
+					for i := 48; i < 56; i++ {
+						fmt.Println(lines[i])
+					}
+				}
+				if x-1 == 2 {
+					for i := 56; i < 64; i++ {
+						fmt.Println(lines[i])
+					}
+				}
+				if x-1 == 1 {
+					for i := 64; i < 72; i++ {
+						fmt.Println(lines[i])
+					}
+				}
+				if x-1 == 0 {
+					for i := 72; i < 80; i++ {
+						fmt.Println(lines[i])
+					}
 				}
 			}
 		} else if len(UserChoice) > 1 {
