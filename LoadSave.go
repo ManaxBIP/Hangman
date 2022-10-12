@@ -43,8 +43,11 @@ func Load(save string) {
 	for i := 0; i < 2; i++ {
 		print("\n")
 	}
+	var StockUserChoise []string
+	var Redondant bool
 	countFinish := 0
 	for x := Attempts; x > 0; x-- {
+		Redondant = false
 		if Attempts < 1 {
 			break
 		}
@@ -62,7 +65,15 @@ func Load(save string) {
 		found := false
 		fmt.Print("Choose: ")
 		fmt.Scan(&UserChoice)
-		if len(UserChoice) == 1 && UserChoice > string(rune(64)) && UserChoice < string(rune(91)) {
+		for _, i := range StockUserChoise {
+			if UserChoice == i {
+				Redondant = true
+			}
+		}
+		if Redondant == false {
+			StockUserChoise = append(StockUserChoise, UserChoice)
+		}
+		if len(UserChoice) == 1 && UserChoice > string(rune(64)) && UserChoice < string(rune(91)) && Redondant == false {
 			for i := range Word {
 				if UserChoice == Word[i] {
 					Res[i] = UserChoice
@@ -133,7 +144,7 @@ func Load(save string) {
 					}
 				}
 			}
-		} else if len(UserChoice) > 1 {
+		} else if len(UserChoice) > 1 && Redondant == false {
 			count := 0
 			for _, i := range UserChoice {
 				if string(i) > string(rune(64)) && string(i) < string(rune(91)) {
@@ -212,9 +223,16 @@ func Load(save string) {
 					x++
 				}
 			}
+		} else if Redondant == true {
+			fmt.Println("Already used ! ")
+			x++
 		}
 	}
 	if countFinish != len(Res) && Attempts < 1 {
-		print("You lose ! The result was ", Word, ".")
+		var WordToPrint string
+		for _, i := range Word {
+			WordToPrint += i
+		}
+		fmt.Println("You lose ! The result was ", WordToPrint, ".")
 	}
 }

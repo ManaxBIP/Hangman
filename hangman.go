@@ -14,6 +14,8 @@ import (
 
 func Game(file string) {
 	attempts := 10
+	var StockUserChoise []string
+	var Redondant bool
 	data, err := os.Open(file)
 	if err != nil {
 		log.Panicf("failed reading data from file: %s", err)
@@ -85,6 +87,7 @@ func Game(file string) {
 	}
 	countFinish := 0
 	for x := attempts; x > 0; x-- {
+		Redondant = false
 		if attempts < 1 {
 			break
 		}
@@ -129,7 +132,15 @@ func Game(file string) {
 			fmt.Println("Game Saved in save.txt.")
 			break
 		}
-		if len(UserChoice) == 1 && UserChoice > string(rune(64)) && UserChoice < string(rune(91)) {
+		for _, i := range StockUserChoise {
+			if UserChoice == i {
+				Redondant = true
+			}
+		}
+		if Redondant == false {
+			StockUserChoise = append(StockUserChoise, UserChoice)
+		}
+		if len(UserChoice) == 1 && UserChoice > string(rune(64)) && UserChoice < string(rune(91)) && Redondant == false {
 			for i := range randomSplitted {
 				if UserChoice == randomSplitted[i] {
 					res[i] = UserChoice
@@ -200,7 +211,7 @@ func Game(file string) {
 					}
 				}
 			}
-		} else if len(UserChoice) > 1 {
+		} else if len(UserChoice) > 1 && Redondant == false {
 			count := 0
 			for _, i := range UserChoice {
 				if string(i) > string(rune(64)) && string(i) < string(rune(91)) {
@@ -279,9 +290,12 @@ func Game(file string) {
 					x++
 				}
 			}
+		} else if Redondant == true {
+			fmt.Println("Already used ! ")
+			x++
 		}
 	}
 	if countFinish != len(res) && attempts < 1 {
-		print("You lose ! The result was ", RandomUpper, ".")
+		fmt.Println("You lose ! The result was ", RandomUpper, ".")
 	}
 }
