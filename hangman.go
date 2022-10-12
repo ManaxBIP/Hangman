@@ -2,7 +2,9 @@ package Hangman
 
 import (
 	"bufio"
+	"encoding/json"
 	"fmt"
+	"io/ioutil"
 	"log"
 	"math/rand"
 	"os"
@@ -100,6 +102,33 @@ func Game(file string) {
 		found := false
 		fmt.Print("Choose: ")
 		fmt.Scan(&UserChoice)
+		if UserChoice == "STOP" {
+			type ElementSaved struct {
+				Attempts int
+				Word     []string
+				Result   []string
+			}
+			ElmtSaved := ElementSaved{
+				Attempts: attempts,
+				Word:     randomSplitted,
+				Result:   res,
+			}
+			save, err := json.Marshal(ElmtSaved)
+			if err != nil {
+				fmt.Println("error:", err)
+			}
+			fileSave, err := os.Create("save.txt")
+			if err != nil {
+				log.Fatal(err)
+			}
+			errWrite := ioutil.WriteFile("save.txt", save, 0777)
+			if errWrite != nil {
+				fmt.Println(errWrite)
+			}
+			defer fileSave.Close()
+			fmt.Println("Game Saved in save.txt.")
+			break
+		}
 		if len(UserChoice) == 1 && UserChoice > string(rune(64)) && UserChoice < string(rune(91)) {
 			for i := range randomSplitted {
 				if UserChoice == randomSplitted[i] {
@@ -252,7 +281,7 @@ func Game(file string) {
 			}
 		}
 	}
-	if countFinish != len(res) {
+	if countFinish != len(res) && attempts < 1 {
 		print("You lose ! The result was ", RandomUpper, ".")
 	}
 }
