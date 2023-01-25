@@ -65,6 +65,33 @@ func Load(save string) {
 		found := false
 		fmt.Print("Choose: ")
 		fmt.Scan(&UserChoice)
+		if UserChoice == "STOP" {
+			type ElementSaved struct {
+				Attempts int
+				Word     []string
+				Result   []string
+			}
+			ElmtSaved := ElementSaved{
+				Attempts: Attempts,
+				Word:     Word,
+				Result:   Res,
+			}
+			save, err := json.Marshal(ElmtSaved)
+			if err != nil {
+				fmt.Println("error:", err)
+			}
+			fileSave, err := os.Create("save.txt")
+			if err != nil {
+				log.Fatal(err)
+			}
+			errWrite := ioutil.WriteFile("save.txt", save, 0777)
+			if errWrite != nil {
+				fmt.Println(errWrite)
+			}
+			defer fileSave.Close()
+			fmt.Println("Game Saved in save.txt.")
+			break
+		}
 		for _, i := range StockUserChoise {
 			if UserChoice == i {
 				Redondant = true
@@ -138,7 +165,7 @@ func Load(save string) {
 						fmt.Println(lines[i])
 					}
 				}
-				if Attempts == 0 {
+				if Attempts < 1 {
 					for i := 72; i < 80; i++ {
 						fmt.Println(lines[i])
 					}
@@ -169,6 +196,9 @@ func Load(save string) {
 					}
 				} else {
 					Attempts -= 2
+					if Attempts < 0 {
+						Attempts = 0
+					}
 					print("Not present in the word, ", Attempts, " attempts remaining\n")
 					if Attempts == 9 {
 						for i := 0; i < 8; i++ {
@@ -215,7 +245,7 @@ func Load(save string) {
 							fmt.Println(lines[i])
 						}
 					}
-					if Attempts == 0 {
+					if Attempts < 1 {
 						for i := 72; i < 80; i++ {
 							fmt.Println(lines[i])
 						}

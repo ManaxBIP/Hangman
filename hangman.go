@@ -205,7 +205,7 @@ func Game(file string) {
 						fmt.Println(lines[i])
 					}
 				}
-				if attempts == 0 {
+				if attempts < 1 {
 					for i := 72; i < 80; i++ {
 						fmt.Println(lines[i])
 					}
@@ -236,6 +236,9 @@ func Game(file string) {
 					}
 				} else {
 					attempts -= 2
+					if attempts < 0 {
+						attempts = 0
+					}
 					print("Not present in the word, ", attempts, " attempts remaining\n")
 					if attempts == 9 {
 						for i := 0; i < 8; i++ {
@@ -282,7 +285,7 @@ func Game(file string) {
 							fmt.Println(lines[i])
 						}
 					}
-					if attempts == 0 {
+					if attempts < 1 {
 						for i := 72; i < 80; i++ {
 							fmt.Println(lines[i])
 						}

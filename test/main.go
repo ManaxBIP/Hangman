@@ -1,13 +1,7 @@
 package main
 
-import (
-	"Hangman"
-	"flag"
-	"os"
-)
-
 func main() {
-	var saveLoaded bool
+	/*var saveLoaded bool
 	var AsciiArt bool
 	args := os.Args[1:]
 	flag.BoolVar(&saveLoaded, "startWith", false, "start with save")
@@ -15,10 +9,11 @@ func main() {
 	flag.Parse()
 	if saveLoaded {
 		Hangman.Load(args[1])
-
 	} else if AsciiArt {
 		Hangman.AsciiArt(args[1])
-	} else if len(args) != 0 {
+	} else if len(args) != 0 && AsciiArt == false {
 		Hangman.Game(args[0])
-	}
+	}*/
+	/*Hangman.Test("COCCYX", "_ O _ _ _ X", "C")
+	Hangman.AddUserChoice("a", "y")*/
 }
