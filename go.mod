@@ -1,3 +1,3 @@
-module github.com/ManaxBIP/hangman-classic
+module github.com/ManaxBIP/hangman
 
 go 1.19
